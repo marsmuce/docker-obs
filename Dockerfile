@@ -5,48 +5,24 @@ FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG FIREFOX_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE=Firefox \
+ENV TITLE="OBS STUDIO" \
     PIXELFLUX_WAYLAND=true
 
 RUN \
   echo "**** add icon ****" && \
   curl -o \
     /usr/share/selkies/www/icon.png \
-    https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/firefox-logo.png && \
+    https://github.com/obsproject/obs-studio/blob/master/frontend/forms/images/obs.png?raw=true && \
   echo "**** install packages ****" && \
-  add-apt-repository ppa:xtradeb/apps && \
+  add-apt-repository --yes --no-update ppa:obsproject/obs-studio && \
   apt-get update && \
-  apt-get install -y --no-install-recommends \
-    firefox \
-    ^firefox-locale && \
-  echo "**** default firefox settings ****" && \
-  FIREFOX_SETTING="/usr/lib/firefox/browser/defaults/preferences/firefox.js" && \
-  echo 'pref("datareporting.policy.firstRunURL", "");' > ${FIREFOX_SETTING} && \
-  echo 'pref("datareporting.policy.dataSubmissionEnabled", false);' >> ${FIREFOX_SETTING} && \
-  echo 'pref("datareporting.healthreport.service.enabled", false);' >> ${FIREFOX_SETTING} && \
-  echo 'pref("datareporting.healthreport.uploadEnabled", false);' >> ${FIREFOX_SETTING} && \
-  echo 'pref("trailhead.firstrun.branches", "nofirstrun-empty");' >> ${FIREFOX_SETTING} && \
-  echo 'pref("browser.aboutwelcome.enabled", false);' >> ${FIREFOX_SETTING} && \
-  echo 'pref("security.sandbox.warn_unprivileged_namespaces", false);' >> ${FIREFOX_SETTING} && \
-  printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
-  echo "**** cleanup ****" && \
-  apt-get autoclean && \
-  rm -rf \
-    /config/.cache \
-    /config/.launchpadlib \
-    /var/lib/apt/lists/* \
-    /var/tmp/* \
-    /tmp/*
-
+  apt-get install -y obs-studio
 # add local files
 COPY /root /
 
 # ports and volumes
 EXPOSE 3001
-
-VOLUME /config

@@ -1,3 +1,2 @@
 #!/bin/bash
-
-/usr/bin/firefox ${FIREFOX_CLI}
+obs
