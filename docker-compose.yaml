@@ -1,7 +1,9 @@
 services:
     obs-studio:
         container_name: obs-studio
-        image: ghcr.io/marsmuce/docker-obs:master
+        build: 
+            context: .
+            dockerfile: Dockerfile
         devices:
             - /dev/dri
             - /dev/video2
