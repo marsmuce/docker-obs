@@ -6,7 +6,7 @@ services:
             dockerfile: Dockerfile
         devices:
             - /dev/dri
-            - /dev/video2
+            - /dev/video0
         volumes:
             - /tmp/obs:/config
         environment:
