@@ -4,9 +4,11 @@ services:
         build: 
             context: .
             dockerfile: Dockerfile
-        devices:
-            - /dev/dri
-            - /dev/video0
+        privileged: true
+        #devices:
+        #    - /dev/dri
+        #    - /dev/video0
+        #    - /dev/snd
         volumes:
             - /tmp/obs:/config
         environment:
