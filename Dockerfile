@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:debiantrixie
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 
 ENV TITLE="OBS STUDIO" \
     PIXELFLUX_WAYLAND=true
